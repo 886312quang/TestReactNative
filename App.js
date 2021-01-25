@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { Book } from "./Component/Book";
+import { Detail } from "./Component/Detail";
+import { BOOK_SCREEN, DETAILS_SCREEN } from "./Component/ScreenName";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const AppNavigator = createStackNavigator(
+  {
+    BOOK_SCREEN: {
+      screen: Book,
+      navigationOptions: {
+        headerTitle: "Trang chu",
+      },
+    },
+    DETAILS_SCREEN: {
+      screen: Detail,
+      navigationOptions: {
+        headerTitle: "Chi tiet",
+      },
+    },
   },
-});
+  {
+    initialRouteName: BOOK_SCREEN,
+  },
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends Component {
+  render() {
+    return <AppContainer />;
+  }
+}
